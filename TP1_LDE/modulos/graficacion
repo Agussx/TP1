@@ -1,0 +1,33 @@
+import matplotlib.pyplot as plt
+import time
+import random
+from nodo import Nodo
+from LDE import ListaDobleEnlazada
+
+def analizar_tiempo_ordenar(valores_n):
+    tiempos = []
+    tamanios = []
+
+    for n in valores_n:
+        lista_prueba = ListaDobleEnlazada()
+        for _ in range(n):
+            lista_prueba.agregar_al_final(random.randint(10, 100))
+
+        tini = time.time()
+        lista_prueba.ordenar()
+        tfin = time.time()
+
+        duracion = tfin - tini
+        tiempos.append(duracion)
+        tamanios.append(n)
+
+    return tamanios, tiempos
+
+valores_n = [10, 100, 500, 1000,1500]
+tamanios, tiempos = analizar_tiempo_ordenar(valores_n)
+
+plt.plot(tamanios, tiempos, ".")
+plt.xlabel('Tamaño de la lista')
+plt.ylabel('Tiempo (segundos)')
+plt.title('Análisis de tiempo del método ordenar')
+plt.show()
